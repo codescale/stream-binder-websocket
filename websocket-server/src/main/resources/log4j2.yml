@@ -1,0 +1,44 @@
+Configuration:
+  status: warn
+  name: Websocket-Server-Log-Config
+  properties:
+    property:
+    - name: defaultLogFile
+      value: log/websocket-server.log
+    - name: springLogFile
+      value: log/spring.log
+    - name: defaultPattern
+      value: '%d %p %C{1.} [%t] %m%n'
+  thresholdFilter:
+    level: debug
+  Appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: '%d{HH:mm:ss,SSS} %level{WARN=W, DEBUG=D, ERROR=E, TRACE=T, INFO=I}
+          --- [%-15.15thread] %-40.40class{1.} #%-25.-25method : %msg%n%throwable'
+    File:
+    - name: File
+      fileName: ${defaultLogFile}
+      bufferedIO: true
+      PatternLayout:
+        Pattern: ${defaultPattern}
+    - name: SpringLog
+      fileName: ${springLogFile}
+      PatternLayout:
+        Pattern: ${defaultPattern}
+  Loggers:
+    logger:
+    - name: org.codescale.websocket.server
+      level: info
+      additivity: false
+      AppenderRef:
+        ref: File
+    - name: org.springframework
+      level: info
+      AppenderRef:
+        ref: SpringLog
+    Root:
+      level: info
+      AppenderRef:
+        ref: File

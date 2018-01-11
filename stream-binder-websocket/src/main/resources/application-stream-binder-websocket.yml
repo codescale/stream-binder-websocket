@@ -1,0 +1,4 @@
+stream:
+  binder:
+    websocket:
+      uri: ws://${websocket.host:localhost}:${websocket.port:8080}/ws

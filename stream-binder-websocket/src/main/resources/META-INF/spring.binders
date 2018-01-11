@@ -1,0 +1,2 @@
+websocket:\
+org.codescale.stream.binder.websocket.config.WebSocketServiceAutoConfiguration

@@ -1,0 +1,32 @@
+Configuration:
+  status: warn
+  name: Stream-Binder-Websocket-Log-Config
+  properties:
+    property:
+      name: filename
+      value: log/stream-binder-websocket.log
+  thresholdFilter:
+    level: debug
+  Appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: '%d{HH:mm:ss,SSS} %level{WARN=W, DEBUG=D, ERROR=E, TRACE=T, INFO=I}
+          --- [%-15.15thread] %-40.40class{1.} #%-25.-25method : %msg%n%throwable'
+    File:
+      name: File
+      fileName: ${filename}
+      bufferedIO: true
+      PatternLayout:
+        Pattern: '%d %p %C{1.} [%t] %m%n'
+  Loggers:
+    logger:
+    - name: org.codescale.stream.binder.websocket
+      level: info
+      additivity: false
+      AppenderRef:
+        ref: File
+    Root:
+      level: info
+      AppenderRef:
+        ref: File
